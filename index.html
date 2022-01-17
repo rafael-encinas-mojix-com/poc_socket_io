@@ -38,7 +38,16 @@
 
         socket.on('chat message', function(msg) {
             var item = document.createElement('li');
-            item.textContent = msg;
+            
+            if (msg.data) {
+              item.textContent = `expeted: ${msg.data.expected} | missing: ${msg.data.missing} |  total: ${msg.data.total} | 
+                                found: ${msg.data.found} | overs: ${msg.data.overs} | extras: ${msg.data.extras} | 
+                                progress: ${msg.data.progress}`;
+            }
+            if (!msg.data) {
+              item.textContent = msg;
+            }
+            
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
