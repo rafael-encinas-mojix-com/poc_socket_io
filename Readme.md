@@ -1,5 +1,3 @@
-# poc_socket_io
-
 
 ## Docker
 docker build . -t socketiowebapp
