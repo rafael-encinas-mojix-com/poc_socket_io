@@ -21,9 +21,9 @@
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="./socketio.js"></script>
     <script>
-        var socket = io('ws://localhost:3000');
+        var socket = io('ws://104.154.200.199:3000');
       
         var form = document.getElementById('form');
         var input = document.getElementById('input');
