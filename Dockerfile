@@ -13,9 +13,8 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY index.html index.html
-COPY socketio.js socketio.js
-COPY server.js server.js
+COPY server.js ./
+COPY configuration.js ./
 
 EXPOSE 8080
 CMD [ "node", "server.js" ]
