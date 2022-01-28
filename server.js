@@ -56,16 +56,16 @@ async function kafkaConfiguration() {
 
 	await consumer.connect();
 	await consumer.subscribe(
-		{ 
-			topic: configuration.kafka.topicSummary, 
-			fromBeginning: false 
+		{
+			topic: configuration.kafka.topicSummary,
+			fromBeginning: false
 		}
 	);
 
 	await consumer.subscribe(
-		{ 
-			topic: configuration.kafka.topicDetails, 
-			fromBeginning: false 
+		{
+			topic: configuration.kafka.topicDetails,
+			fromBeginning: false
 		}
 	);
 
@@ -84,8 +84,26 @@ async function kafkaConfiguration() {
 	});
 }
 
-app.get('/hello', (req, res) => {
-	res.status(200).json({ "greeting": "Hello World" });
+app.get('/healthcheck', (req, res) => {
+	res.status(200).json({ "server": "I'm alive" });
+});
+
+app.get('/connections', (req, res) => {
+	var connectedClients = -1;
+	try {
+		console.log(io.sockets);
+		connectedClients = io.sockets.server.eio.clientsCount;
+		const successResponse = { 
+			connections: connectedClients 
+		};
+
+		res.status(200).json(successResponse);
+	} catch (error) {
+		const errorResponse = { 
+			connections: "Ops somethings is wrong on the server. Please contact your administrator." 
+		}; 
+		res.status(500).json(errorResponse);
+	}
 });
 
 httpServer.listen(configuration.port, () => console.log(`listening on port ${configuration.port}`));
